@@ -1,4 +1,4 @@
-package com.programmingskillz.model;
+package com.programmingskillz.familytreexmlparser.business.domain;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -1,8 +1,8 @@
-package com.programmingskillz.util;
+package com.programmingskillz.familytreexmlparser.util;
 
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.model.Entry;
-import com.programmingskillz.util.EntryUtils;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.domain.Entry;
+import com.programmingskillz.familytreexmlparser.util.EntryUtils;
 import org.junit.Before;
 import org.junit.Test;
 

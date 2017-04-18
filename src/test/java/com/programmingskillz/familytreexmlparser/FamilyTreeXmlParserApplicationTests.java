@@ -1,4 +1,4 @@
-package com.programmingskillz;
+package com.programmingskillz.familytreexmlparser;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

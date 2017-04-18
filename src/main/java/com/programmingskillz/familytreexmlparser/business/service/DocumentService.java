@@ -1,12 +1,12 @@
-package com.programmingskillz.service;
+package com.programmingskillz.familytreexmlparser.business.service;
 
-import com.programmingskillz.exceptions.MoreThanOneRootException;
-import com.programmingskillz.repository.DocumentRepository;
-import com.programmingskillz.exceptions.RootNotFoundException;
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.model.Entry;
-import com.programmingskillz.util.EntryUtils;
-import com.programmingskillz.util.TreeNode;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.data.repository.DocumentRepository;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.domain.Entry;
+import com.programmingskillz.familytreexmlparser.util.EntryUtils;
+import com.programmingskillz.familytreexmlparser.util.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

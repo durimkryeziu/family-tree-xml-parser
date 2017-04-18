@@ -1,9 +1,9 @@
-package com.programmingskillz.util;
+package com.programmingskillz.familytreexmlparser.util;
 
-import com.programmingskillz.exceptions.MoreThanOneRootException;
-import com.programmingskillz.exceptions.RootNotFoundException;
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
-package com.programmingskillz.controller;
+package com.programmingskillz.familytreexmlparser.web;
 
-import com.programmingskillz.exceptions.MoreThanOneRootException;
-import com.programmingskillz.exceptions.RootNotFoundException;
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

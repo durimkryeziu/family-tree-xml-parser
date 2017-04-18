@@ -1,4 +1,4 @@
-package com.programmingskillz.exceptions;
+package com.programmingskillz.familytreexmlparser.business.exception;
 
 /**
  * @author Durim Kryeziu

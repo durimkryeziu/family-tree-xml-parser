@@ -1,4 +1,4 @@
-package com.programmingskillz.controller;
+package com.programmingskillz.familytreexmlparser.web;
 
 import org.junit.Before;
 import org.junit.Test;

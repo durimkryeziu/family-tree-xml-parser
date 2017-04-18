@@ -1,4 +1,4 @@
-package com.programmingskillz.util;
+package com.programmingskillz.familytreexmlparser.util;
 
 import java.util.ArrayList;
 import java.util.List;

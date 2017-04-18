@@ -1,7 +1,7 @@
-package com.programmingskillz.util;
+package com.programmingskillz.familytreexmlparser.util;
 
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.model.Entry;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.domain.Entry;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.programmingskillz.config;
+package com.programmingskillz.familytreexmlparser.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

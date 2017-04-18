@@ -1,11 +1,11 @@
-package com.programmingskillz.controller;
+package com.programmingskillz.familytreexmlparser.web;
 
-import com.programmingskillz.controller.DocumentController;
-import com.programmingskillz.exceptions.MoreThanOneRootException;
-import com.programmingskillz.exceptions.RootNotFoundException;
-import com.programmingskillz.model.Entries;
-import com.programmingskillz.model.Entry;
-import com.programmingskillz.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
+import com.programmingskillz.familytreexmlparser.business.domain.Entry;
+import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.web.DocumentController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

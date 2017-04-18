@@ -1,6 +1,6 @@
-package com.programmingskillz.repository;
+package com.programmingskillz.familytreexmlparser.data.repository;
 
-import com.programmingskillz.util.TreeNode;
+import com.programmingskillz.familytreexmlparser.util.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
