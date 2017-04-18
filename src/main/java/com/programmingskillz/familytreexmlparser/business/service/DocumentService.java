@@ -1,10 +1,10 @@
 package com.programmingskillz.familytreexmlparser.business.service;
 
-import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.data.repository.DocumentRepository;
-import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
 import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.domain.Entry;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.data.repository.DocumentRepository;
 import com.programmingskillz.familytreexmlparser.util.EntryUtils;
 import com.programmingskillz.familytreexmlparser.util.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,6 @@ import java.util.List;
 public class DocumentService {
 
     private DocumentRepository repository;
-
-    private int count = 0;
 
     @Autowired
     public DocumentService(DocumentRepository repository) {
@@ -48,17 +46,13 @@ public class DocumentService {
 
         TreeNode rootNode = new TreeNode(root.getValue());
 
-        count = 0;
-
         createTree(rootNode, childrenEntries);
 
-        System.out.println(count);
         repository.saveDoc(rootNode);
     }
 
     public void createTree(TreeNode root, List<Entry> children) {
         for (Entry child : children) {
-            count++;
             if (root.getData().equals(child.getParentName())) {
                 root.addChild(child.getValue());
                 List<TreeNode> rootChildren = root.getChildren();
