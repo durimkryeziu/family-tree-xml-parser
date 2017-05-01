@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 08, 2017.
  */
 @XmlRootElement
 public class Entry {

@@ -13,7 +13,6 @@ import java.util.Iterator;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 09, 2017.
  */
 @Repository
 public class DocumentRepository {

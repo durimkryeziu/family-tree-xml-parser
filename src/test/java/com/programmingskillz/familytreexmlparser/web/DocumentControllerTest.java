@@ -1,11 +1,10 @@
 package com.programmingskillz.familytreexmlparser.web;
 
-import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
 import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.domain.Entry;
+import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
 import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
-import com.programmingskillz.familytreexmlparser.web.DocumentController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +22,6 @@ import static org.mockito.Mockito.doThrow;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 10, 2017.
  */
 public class DocumentControllerTest {
 

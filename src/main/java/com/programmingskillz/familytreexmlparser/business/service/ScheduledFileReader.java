@@ -1,9 +1,8 @@
-package com.programmingskillz.familytreexmlparser.util;
+package com.programmingskillz.familytreexmlparser.business.service;
 
+import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
 import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
-import com.programmingskillz.familytreexmlparser.business.domain.Entries;
-import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import java.nio.file.Paths;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 08, 2017.
  */
 @Component
 public class ScheduledFileReader {

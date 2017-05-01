@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 08, 2017.
  */
 @RestController
 public class DocumentController {

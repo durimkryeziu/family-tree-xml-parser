@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 08, 2017.
  */
 @Service
 public class DocumentService {

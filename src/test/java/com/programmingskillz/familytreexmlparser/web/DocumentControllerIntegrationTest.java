@@ -17,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 10, 2017.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

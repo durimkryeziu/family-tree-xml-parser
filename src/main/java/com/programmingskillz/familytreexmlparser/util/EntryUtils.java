@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author Durim Kryeziu
- * @since Mar 08, 2017.
  */
 public class EntryUtils {
 
