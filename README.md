@@ -30,9 +30,9 @@ The structure of the ENTRY table is shown below:
 
 XML documents can be sent to the application in two ways:
 
-:one: Via HTTP POST requests: `http://localhost:8080/documents` with _Content-Type: application/xml_
+:point_right: Via HTTP POST requests: `http://localhost:8080/documents` with _Content-Type: application/xml_
 
-:two: By placing the files to a predefined directory (the application checks this directory in a
+:point_right: By placing the files to a predefined directory (the application checks this directory in a
 regular interval, e.g. every 30 seconds).
 
 ## Installation
