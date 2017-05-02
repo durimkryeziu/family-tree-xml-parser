@@ -46,6 +46,10 @@ regular interval, e.g. every 30 seconds).
 
 :four: Run `java -jar target/family-tree-xml-parser-1.0.0-SNAPSHOT.jar` and you are ready to go!
 
+## References
+- Spring Framework Reference Doc: http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
+- Spring Boot Reference Doc: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
+
 ## License
 This is free and unencumbered software released into the public domain.
 
