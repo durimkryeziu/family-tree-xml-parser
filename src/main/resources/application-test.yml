@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    generate-unique-name: true
+
+server:
+  port: 8081

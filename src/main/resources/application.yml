@@ -1,19 +1,12 @@
 spring:
+  application:
+    name: family-tree-xml-parser
+  profiles:
+    active: dev
   h2:
     console:
       enabled: true
----
-spring:
-  profiles: dev
-  datasource:
-    url: jdbc:mysql://localhost:3306/testdb
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-server:
-  port: 8081
----
-spring:
-  profiles: test
-server:
-  port: 8082
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL:info}

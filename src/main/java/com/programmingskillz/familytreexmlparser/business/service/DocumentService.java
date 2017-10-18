@@ -18,45 +18,45 @@ import java.util.List;
 @Service
 public class DocumentService {
 
-    private DocumentRepository repository;
+  private DocumentRepository repository;
 
-    @Autowired
-    public DocumentService(DocumentRepository repository) {
-        this.repository = repository;
+  @Autowired
+  public DocumentService(DocumentRepository repository) {
+    this.repository = repository;
+  }
+
+  public void insertDoc(Entries entries) throws MoreThanOneRootException, RootNotFoundException {
+
+    if (entries == null) {
+      throw new IllegalArgumentException("Entries cannot be null");
     }
 
-    public void insertDoc(Entries entries) throws MoreThanOneRootException, RootNotFoundException {
+    Entry root = EntryUtils.getRootEntry(entries);
 
-        if (entries == null) {
-            throw new IllegalArgumentException("Entries cannot be null");
-        }
-
-        Entry root = EntryUtils.getRootEntry(entries);
-
-        if (root == null) {
-            throw new RootNotFoundException();
-        }
-
-        if (!EntryUtils.isOneRoot(entries)) {
-            throw new MoreThanOneRootException();
-        }
-
-        List<Entry> childrenEntries = EntryUtils.getChildrenEntries(entries);
-
-        TreeNode rootNode = new TreeNode(root.getValue());
-
-        createTree(rootNode, childrenEntries);
-
-        repository.saveDoc(rootNode);
+    if (root == null) {
+      throw new RootNotFoundException();
     }
 
-    public void createTree(TreeNode root, List<Entry> children) {
-        for (Entry child : children) {
-            if (root.getData().equals(child.getParentName())) {
-                root.addChild(child.getValue());
-                List<TreeNode> rootChildren = root.getChildren();
-                createTree(rootChildren.get(rootChildren.size() - 1), children);
-            }
-        }
+    if (!EntryUtils.isOneRoot(entries)) {
+      throw new MoreThanOneRootException();
     }
+
+    List<Entry> childrenEntries = EntryUtils.getChildrenEntries(entries);
+
+    TreeNode rootNode = new TreeNode(root.getValue());
+
+    createTree(rootNode, childrenEntries);
+
+    repository.saveDoc(rootNode);
+  }
+
+  public void createTree(TreeNode root, List<Entry> children) {
+    for (Entry child : children) {
+      if (root.getData().equals(child.getParentName())) {
+        root.addChild(child.getValue());
+        List<TreeNode> rootChildren = root.getChildren();
+        createTree(rootChildren.get(rootChildren.size() - 1), children);
+      }
+    }
+  }
 }

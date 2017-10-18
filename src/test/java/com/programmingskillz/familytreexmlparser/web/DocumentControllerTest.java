@@ -1,5 +1,9 @@
 package com.programmingskillz.familytreexmlparser.web;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+
 import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.domain.Entry;
 import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
@@ -16,104 +20,100 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-
 /**
  * @author Durim Kryeziu
  */
 public class DocumentControllerTest {
 
-    @InjectMocks
-    private DocumentController controller;
+  @InjectMocks
+  private DocumentController controller;
 
-    @Mock
-    private DocumentService service;
+  @Mock
+  private DocumentService service;
 
-    private Entries entries;
-    private List<Entry> allEntries;
+  private Entries entries;
+  private List<Entry> allEntries;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        entries = new Entries();
-        allEntries = new ArrayList<>();
-    }
+  @Before
+  public void setUp() throws Exception {
+    MockitoAnnotations.initMocks(this);
+    entries = new Entries();
+    allEntries = new ArrayList<>();
+  }
 
-    @Test
-    public void shouldReturn400IfBodyIsNull() throws Exception {
-        ResponseEntity<String> nullBody = controller.addDoc(null);
+  @Test
+  public void shouldReturn400IfBodyIsNull() throws Exception {
+    ResponseEntity<String> nullBody = controller.addDoc(null);
 
-        assertEquals(400, nullBody.getStatusCodeValue());
-        assertEquals("HTTP Request message body is missing", nullBody.getBody());
-    }
+    assertEquals(400, nullBody.getStatusCodeValue());
+    assertEquals("HTTP Request message body is missing", nullBody.getBody());
+  }
 
-    @Test
-    public void shouldReturn400IfNoRoot() throws Exception {
-        Entry child = new Entry();
-        child.setParentName("Parent");
-        child.setValue("Child");
+  @Test
+  public void shouldReturn400IfNoRoot() throws Exception {
+    Entry child = new Entry();
+    child.setParentName("Parent");
+    child.setValue("Child");
 
-        entries.setEntries(Collections.singletonList(child));
+    entries.setEntries(Collections.singletonList(child));
 
-        doThrow(RootNotFoundException.class).when(service).insertDoc(entries);
+    doThrow(RootNotFoundException.class).when(service).insertDoc(entries);
 
-        ResponseEntity<String> responseEntity = controller.addDoc(entries);
+    ResponseEntity<String> responseEntity = controller.addDoc(entries);
 
-        assertEquals(400, responseEntity.getStatusCodeValue());
-        assertEquals("There is no root", responseEntity.getBody());
-    }
+    assertEquals(400, responseEntity.getStatusCodeValue());
+    assertEquals("There is no root", responseEntity.getBody());
+  }
 
-    @Test
-    public void shouldReturn400IfMoreThanOneRoot() throws Exception {
-        Entry adam = new Entry();
-        adam.setValue("Adam");
+  @Test
+  public void shouldReturn400IfMoreThanOneRoot() throws Exception {
+    Entry adam = new Entry();
+    adam.setValue("Adam");
 
-        Entry durim = new Entry();
-        durim.setValue("Durim");
+    Entry durim = new Entry();
+    durim.setValue("Durim");
 
-        Entry luka = new Entry();
-        luka.setParentName(adam.getValue());
-        luka.setValue("Luka");
+    Entry luka = new Entry();
+    luka.setParentName(adam.getValue());
+    luka.setValue("Luka");
 
-        allEntries.add(adam);
-        allEntries.add(durim);
-        allEntries.add(luka);
+    allEntries.add(adam);
+    allEntries.add(durim);
+    allEntries.add(luka);
 
-        entries.setEntries(allEntries);
+    entries.setEntries(allEntries);
 
-        doThrow(MoreThanOneRootException.class).when(service).insertDoc(entries);
+    doThrow(MoreThanOneRootException.class).when(service).insertDoc(entries);
 
-        ResponseEntity<String> responseEntity = controller.addDoc(entries);
+    ResponseEntity<String> responseEntity = controller.addDoc(entries);
 
-        assertEquals(400, responseEntity.getStatusCodeValue());
-        assertEquals("There is more than one root.", responseEntity.getBody());
-    }
+    assertEquals(400, responseEntity.getStatusCodeValue());
+    assertEquals("There is more than one root.", responseEntity.getBody());
+  }
 
-    @Test
-    public void shouldReturnOkWhenEntriesCorrect() throws Exception {
-        Entry adam = new Entry();
-        adam.setValue("Adam");
+  @Test
+  public void shouldReturnOkWhenEntriesCorrect() throws Exception {
+    Entry adam = new Entry();
+    adam.setValue("Adam");
 
-        Entry luka = new Entry();
-        luka.setParentName(adam.getValue());
-        luka.setValue("Luka");
+    Entry luka = new Entry();
+    luka.setParentName(adam.getValue());
+    luka.setValue("Luka");
 
-        Entry leopold = new Entry();
-        leopold.setParentName(adam.getValue());
-        leopold.setValue("Leopold");
+    Entry leopold = new Entry();
+    leopold.setParentName(adam.getValue());
+    leopold.setValue("Leopold");
 
-        allEntries.add(adam);
-        allEntries.add(luka);
-        allEntries.add(leopold);
+    allEntries.add(adam);
+    allEntries.add(luka);
+    allEntries.add(leopold);
 
-        entries.setEntries(allEntries);
+    entries.setEntries(allEntries);
 
-        doNothing().when(service).insertDoc(entries);
+    doNothing().when(service).insertDoc(entries);
 
-        ResponseEntity<String> responseEntity = controller.addDoc(entries);
+    ResponseEntity<String> responseEntity = controller.addDoc(entries);
 
-        assertEquals(200, responseEntity.getStatusCodeValue());
-    }
+    assertEquals(200, responseEntity.getStatusCodeValue());
+  }
 }

@@ -12,29 +12,29 @@ import java.util.stream.Collectors;
  */
 public class EntryUtils {
 
-    public static Entry getRootEntry(Entries entries) {
-        Optional<Entry> first = entries.getEntries()
-                .stream()
-                .filter(e -> e.getParentName() == null)
-                .findFirst();
+  public static Entry getRootEntry(Entries entries) {
+    Optional<Entry> first = entries.getEntries()
+        .stream()
+        .filter(e -> e.getParentName() == null)
+        .findFirst();
 
-        return first.orElse(null);
-    }
+    return first.orElse(null);
+  }
 
-    public static List<Entry> getChildrenEntries(Entries entries) {
-        return entries.getEntries()
-                .stream()
-                .filter(e -> e.getParentName() != null)
-                .collect(Collectors.toList());
-    }
+  public static List<Entry> getChildrenEntries(Entries entries) {
+    return entries.getEntries()
+        .stream()
+        .filter(e -> e.getParentName() != null)
+        .collect(Collectors.toList());
+  }
 
-    public static boolean isOneRoot(Entries entries) {
+  public static boolean isOneRoot(Entries entries) {
 
-        long count = entries.getEntries()
-                .stream()
-                .filter(e -> e.getParentName() == null)
-                .count();
+    long count = entries.getEntries()
+        .stream()
+        .filter(e -> e.getParentName() == null)
+        .count();
 
-        return count == 1;
-    }
+    return count == 1;
+  }
 }

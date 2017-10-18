@@ -18,30 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DocumentController {
 
-    private DocumentService service;
+  private DocumentService service;
 
-    @Autowired
-    public DocumentController(DocumentService service) {
-        this.service = service;
+  @Autowired
+  public DocumentController(DocumentService service) {
+    this.service = service;
+  }
+
+  @PostMapping(value = "documents", consumes = MediaType.APPLICATION_XML_VALUE)
+  public ResponseEntity<String> addDoc(@RequestBody Entries entries) {
+
+    if (entries == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body("HTTP Request message body is missing");
     }
 
-    @PostMapping(
-            value = "documents",
-            consumes = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<String> addDoc(@RequestBody Entries entries) {
-
-        if (entries == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("HTTP Request message body is missing");
-        }
-
-        try {
-            service.insertDoc(entries);
-        } catch (MoreThanOneRootException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is more than one root.");
-        } catch (RootNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is no root");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body("Document inserted successfully");
+    try {
+      service.insertDoc(entries);
+    } catch (MoreThanOneRootException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is more than one root.");
+    } catch (RootNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is no root");
     }
+
+    return ResponseEntity.status(HttpStatus.OK).body("Document inserted successfully");
+  }
 }

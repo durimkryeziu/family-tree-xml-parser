@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${JDBC_URL:jdbc:h2:file:~/h2_data/family-tree-entries}
+    username: ${USERNAME:root}
+    password: ${PASSWORD:root}
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 5
+
+logging:
+  level:
+    com:
+      programmingskillz: debug
+      zaxxer: debug

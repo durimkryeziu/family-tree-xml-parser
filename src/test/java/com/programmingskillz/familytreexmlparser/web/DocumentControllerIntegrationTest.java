@@ -1,5 +1,7 @@
 package com.programmingskillz.familytreexmlparser.web;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author Durim Kryeziu
  */
@@ -22,44 +22,44 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DocumentControllerIntegrationTest {
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort
+  private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+  @Autowired
+  private TestRestTemplate restTemplate;
 
-    private HttpHeaders httpHeaders;
+  private HttpHeaders httpHeaders;
 
-    private String url;
+  private String url;
 
-    @Before
-    public void init() throws Exception {
-        httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_XML);
-        url = String.format("http://localhost:%d/documents", port);
-    }
+  @Before
+  public void init() throws Exception {
+    httpHeaders = new HttpHeaders();
+    httpHeaders.setContentType(MediaType.APPLICATION_XML);
+    url = String.format("http://localhost:%d/documents", port);
+  }
 
-    @Test
-    public void testInsertDoc() throws Exception {
+  @Test
+  public void testInsertDoc() throws Exception {
 
-        String xmlEntity = "<entries>" +
-                "<entry>Adam</entry>" +
-                "<entry parentName=\"Adam\">Stjepan</entry>" +
-                "<entry parentName=\"Stjepan\">Luka</entry>" +
-                "<entry parentName=\"Adam\">Leopold</entry>" +
-                "</entries>";
+    String xmlEntity = "<entries>" +
+        "<entry>Adam</entry>" +
+        "<entry parentName=\"Adam\">Stjepan</entry>" +
+        "<entry parentName=\"Stjepan\">Luka</entry>" +
+        "<entry parentName=\"Adam\">Leopold</entry>" +
+        "</entries>";
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(xmlEntity, httpHeaders);
+    HttpEntity<String> httpEntity = new HttpEntity<>(xmlEntity, httpHeaders);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
+    ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
 
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Document inserted successfully", response.getBody());
-    }
+    assertEquals(200, response.getStatusCodeValue());
+    assertEquals("Document inserted successfully", response.getBody());
+  }
 
-    @Test
-    public void shouldReturn400NullBody() throws Exception {
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+  @Test
+  public void shouldReturn400NullBody() throws Exception {
+    HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-    }
+  }
 }

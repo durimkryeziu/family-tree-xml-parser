@@ -17,39 +17,39 @@ import java.util.Iterator;
 @Repository
 public class DocumentRepository {
 
-    private JdbcTemplate jdbcTemplate;
+  private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public DocumentRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+  @Autowired
+  public DocumentRepository(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
+
+  public void saveDoc(TreeNode entries) {
+    insert(entries, null);
+  }
+
+  public void insert(TreeNode node, Integer parentId) {
+    parentId = saveEntry(node.getData(), parentId);
+
+    Iterator<TreeNode> iterator = node.getChildren().iterator();
+
+    while (iterator.hasNext()) {
+      insert(iterator.next(), parentId);
     }
+  }
 
-    public void saveDoc(TreeNode entries) {
-        insert(entries, null);
-    }
+  public int saveEntry(String name, Integer parentId) {
+    String query = "INSERT INTO ENTRY (NAME, PARENT_ID) VALUES (?, ?)";
 
-    public void insert(TreeNode node, Integer parentId) {
-        parentId = saveEntry(node.getData(), parentId);
+    KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        Iterator<TreeNode> iterator = node.getChildren().iterator();
+    jdbcTemplate.update(conn -> {
+      PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+      ps.setString(1, name);
+      ps.setObject(2, parentId);
+      return ps;
+    }, keyHolder);
 
-        while (iterator.hasNext()) {
-            insert(iterator.next(), parentId);
-        }
-    }
-
-    public int saveEntry(String name, Integer parentId) {
-        String query = "INSERT INTO ENTRY (NAME, PARENT_ID) VALUES (?, ?)";
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(conn -> {
-            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, name);
-            ps.setObject(2, parentId);
-            return ps;
-        }, keyHolder);
-
-        return keyHolder.getKey().intValue();
-    }
+    return keyHolder.getKey().intValue();
+  }
 }
