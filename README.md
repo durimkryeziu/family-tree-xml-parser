@@ -1,4 +1,4 @@
-## Family-Tree XML Parser
+## Family-Tree XML Parser [![Build Status](https://travis-ci.org/durimkryeziu/family-tree-xml-parser.svg?branch=master)](https://travis-ci.org/durimkryeziu/family-tree-xml-parser)
 
 :fire: Spring Boot application which will accept XML documents in a family tree format, parse them and store them in the database. :fire:
 
