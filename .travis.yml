@@ -5,4 +5,4 @@ addons:
     packages:
       - oracle-java8-installer
 after_success:
-  - mvn clean -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID jacoco:report coveralls:report
+  - mvn clean test -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID jacoco:report coveralls:report
