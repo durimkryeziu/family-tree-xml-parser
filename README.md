@@ -1,4 +1,4 @@
-## Family-Tree XML Parser [![Travis branch](https://img.shields.io/travis/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://travis-ci.org/durimkryeziu/family-tree-xml-parser) [![Coveralls branch](https://img.shields.io/coveralls/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://coveralls.io/github/durimkryeziu/family-tree-xml-parser?branch=master)
+## Family-Tree XML Parser [![Travis branch](https://img.shields.io/travis/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://travis-ci.org/durimkryeziu/family-tree-xml-parser) [![Coveralls branch](https://img.shields.io/coveralls/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://coveralls.io/github/durimkryeziu/family-tree-xml-parser?branch=master) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 :fire: Spring Boot application which will accept XML documents in a family tree format, parse them and store them in the database. :fire:
 
