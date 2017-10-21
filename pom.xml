@@ -103,7 +103,7 @@
                             ${project.reporting.outputDirectory}/jacoco/jacoco.xml
                         </jacocoReport>
                     </jacocoReports>
-                    <repoToken>yourcoverallsprojectrepositorytoken</repoToken>
+                    <!--<repoToken>yourcoverallsprojectrepositorytoken</repoToken>-->
                 </configuration>
             </plugin>
         </plugins>
