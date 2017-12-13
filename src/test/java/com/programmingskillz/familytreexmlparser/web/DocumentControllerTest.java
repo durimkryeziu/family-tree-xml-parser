@@ -1,8 +1,12 @@
 package com.programmingskillz.familytreexmlparser.web;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.domain.Entry;
@@ -11,42 +15,44 @@ import com.programmingskillz.familytreexmlparser.business.exception.RootNotFound
 import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 /**
  * @author Durim Kryeziu
  */
+@SpringBootTest
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 public class DocumentControllerTest {
-
-  @InjectMocks
-  private DocumentController controller;
 
   @Mock
   private DocumentService service;
+
+  @Autowired
+  private MockMvc mockMvc;
 
   private Entries entries;
   private List<Entry> allEntries;
 
   @Before
   public void setUp() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    entries = new Entries();
-    allEntries = new ArrayList<>();
-  }
-
-  @Test
-  public void shouldReturn400IfBodyIsNull() throws Exception {
-    ResponseEntity<String> nullBody = controller.addDoc(null);
-
-    assertEquals(400, nullBody.getStatusCodeValue());
-    assertEquals("HTTP Request message body is missing", nullBody.getBody());
+    this.entries = new Entries();
+    this.allEntries = new ArrayList<>();
   }
 
   @Test
@@ -59,10 +65,16 @@ public class DocumentControllerTest {
 
     doThrow(RootNotFoundException.class).when(service).insertDoc(entries);
 
-    ResponseEntity<String> responseEntity = controller.addDoc(entries);
-
-    assertEquals(400, responseEntity.getStatusCodeValue());
-    assertEquals("There is no root", responseEntity.getBody());
+    this.mockMvc
+        .perform(
+            post("/documents")
+                .contentType(MediaType.APPLICATION_XML)
+                .content(getRequestBody(entries))
+        )
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.message").value("There is no root"));
   }
 
   @Test
@@ -85,10 +97,16 @@ public class DocumentControllerTest {
 
     doThrow(MoreThanOneRootException.class).when(service).insertDoc(entries);
 
-    ResponseEntity<String> responseEntity = controller.addDoc(entries);
-
-    assertEquals(400, responseEntity.getStatusCodeValue());
-    assertEquals("There is more than one root.", responseEntity.getBody());
+    this.mockMvc
+        .perform(
+            post("/documents")
+                .contentType(MediaType.APPLICATION_XML)
+                .content(getRequestBody(entries))
+        )
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.message").value("There is more than one root"));
   }
 
   @Test
@@ -112,8 +130,23 @@ public class DocumentControllerTest {
 
     doNothing().when(service).insertDoc(entries);
 
-    ResponseEntity<String> responseEntity = controller.addDoc(entries);
+    this.mockMvc
+        .perform(
+            post("/documents")
+                .contentType(MediaType.APPLICATION_XML)
+                .content(getRequestBody(entries))
+        )
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+        .andExpect(content().string("Document inserted successfully"));
+  }
 
-    assertEquals(200, responseEntity.getStatusCodeValue());
+  private String getRequestBody(Entries entries) throws JAXBException {
+    JAXBContext context = JAXBContext.newInstance(Entries.class);
+    Marshaller marshaller = context.createMarshaller();
+    StringWriter stringWriter = new StringWriter();
+    marshaller.marshal(entries, stringWriter);
+    return stringWriter.toString();
   }
 }
