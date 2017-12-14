@@ -25,7 +25,7 @@ public class DocumentService {
     this.repository = repository;
   }
 
-  public void insertDoc(Entries entries) throws MoreThanOneRootException, RootNotFoundException {
+  public void insertDoc(Entries entries) {
 
     if (entries == null) {
       throw new IllegalArgumentException("Entries cannot be null");
