@@ -27,8 +27,7 @@ public class DocumentController {
   }
 
   @PostMapping(value = "documents", consumes = MediaType.APPLICATION_XML_VALUE)
-  public ResponseEntity<String> addDoc(@RequestBody Entries entries)
-      throws MoreThanOneRootException, RootNotFoundException {
+  public ResponseEntity<String> addDoc(@RequestBody Entries entries) {
 
     service.insertDoc(entries);
 
