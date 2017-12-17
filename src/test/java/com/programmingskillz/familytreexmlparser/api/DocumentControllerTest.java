@@ -1,4 +1,4 @@
-package com.programmingskillz.familytreexmlparser.web;
+package com.programmingskillz.familytreexmlparser.api;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -8,11 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.programmingskillz.familytreexmlparser.business.domain.Entries;
-import com.programmingskillz.familytreexmlparser.business.domain.Entry;
-import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.business.exception.RootIsMissingException;
-import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.application.DocumentService;
+import com.programmingskillz.familytreexmlparser.application.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.application.exception.RootIsMissingException;
+import com.programmingskillz.familytreexmlparser.domain.Entries;
+import com.programmingskillz.familytreexmlparser.domain.Entry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

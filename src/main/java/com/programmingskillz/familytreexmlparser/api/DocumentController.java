@@ -1,7 +1,7 @@
-package com.programmingskillz.familytreexmlparser.web;
+package com.programmingskillz.familytreexmlparser.api;
 
-import com.programmingskillz.familytreexmlparser.business.domain.Entries;
-import com.programmingskillz.familytreexmlparser.business.service.DocumentService;
+import com.programmingskillz.familytreexmlparser.domain.Entries;
+import com.programmingskillz.familytreexmlparser.application.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

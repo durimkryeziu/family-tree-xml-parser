@@ -1,10 +1,10 @@
-package com.programmingskillz.familytreexmlparser.business.service;
+package com.programmingskillz.familytreexmlparser.application;
 
-import com.programmingskillz.familytreexmlparser.business.domain.Entries;
-import com.programmingskillz.familytreexmlparser.business.domain.Entry;
-import com.programmingskillz.familytreexmlparser.data.repository.DocumentRepository;
-import com.programmingskillz.familytreexmlparser.util.EntriesValidator;
-import com.programmingskillz.familytreexmlparser.util.TreeNode;
+import com.programmingskillz.familytreexmlparser.application.validator.EntriesValidator;
+import com.programmingskillz.familytreexmlparser.domain.Entries;
+import com.programmingskillz.familytreexmlparser.domain.Entry;
+import com.programmingskillz.familytreexmlparser.infrastructure.DocumentRepository;
+import com.programmingskillz.familytreexmlparser.domain.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

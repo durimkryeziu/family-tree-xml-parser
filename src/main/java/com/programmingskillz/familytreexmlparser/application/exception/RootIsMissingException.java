@@ -1,4 +1,4 @@
-package com.programmingskillz.familytreexmlparser.business.exception;
+package com.programmingskillz.familytreexmlparser.application.exception;
 
 public class RootIsMissingException extends RuntimeException {
 

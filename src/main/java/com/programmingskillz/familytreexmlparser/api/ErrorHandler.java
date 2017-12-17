@@ -1,7 +1,7 @@
-package com.programmingskillz.familytreexmlparser.web;
+package com.programmingskillz.familytreexmlparser.api;
 
-import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.business.exception.RootIsMissingException;
+import com.programmingskillz.familytreexmlparser.application.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.application.exception.RootIsMissingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

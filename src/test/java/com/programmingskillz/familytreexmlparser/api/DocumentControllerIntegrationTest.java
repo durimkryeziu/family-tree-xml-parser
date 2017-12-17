@@ -1,4 +1,4 @@
-package com.programmingskillz.familytreexmlparser.web;
+package com.programmingskillz.familytreexmlparser.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

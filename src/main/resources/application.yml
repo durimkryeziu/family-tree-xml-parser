@@ -10,3 +10,7 @@ spring:
 logging:
   level:
     root: ${LOGGING_LEVEL:info}
+
+checking-parameters:
+  input-directory: ${INPUT_DIRECTORY:/default-directory}
+  processing-interval: ${PROCESSING_INTERVAL:30000}

@@ -1,9 +1,9 @@
-package com.programmingskillz.familytreexmlparser.util;
+package com.programmingskillz.familytreexmlparser.application.validator;
 
-import com.programmingskillz.familytreexmlparser.business.domain.Entries;
-import com.programmingskillz.familytreexmlparser.business.domain.Entry;
-import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.business.exception.RootIsMissingException;
+import com.programmingskillz.familytreexmlparser.application.exception.MoreThanOneRootException;
+import com.programmingskillz.familytreexmlparser.application.exception.RootIsMissingException;
+import com.programmingskillz.familytreexmlparser.domain.Entries;
+import com.programmingskillz.familytreexmlparser.domain.Entry;
 import org.junit.Before;
 import org.junit.Test;
 

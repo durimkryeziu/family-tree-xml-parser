@@ -1,16 +1,13 @@
-package com.programmingskillz.familytreexmlparser.util;
+package com.programmingskillz.familytreexmlparser.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Durim Kryeziu
- */
 public class TreeNode {
 
-  private String data = null;
+  private String data;
   private TreeNode parent = null;
-  private List<TreeNode> children = null;
+  private List<TreeNode> children;
 
   public TreeNode(String data) {
     this.data = data;

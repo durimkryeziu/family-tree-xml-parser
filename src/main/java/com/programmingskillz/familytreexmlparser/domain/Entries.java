@@ -1,4 +1,4 @@
-package com.programmingskillz.familytreexmlparser.business.domain;
+package com.programmingskillz.familytreexmlparser.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
