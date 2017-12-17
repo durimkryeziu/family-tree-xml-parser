@@ -9,11 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.Iterator;
 
-/**
- * @author Durim Kryeziu
- */
 @Repository
 public class DocumentRepository {
 
@@ -25,20 +21,18 @@ public class DocumentRepository {
   }
 
   public void saveDoc(TreeNode entries) {
-    insert(entries, null);
+    saveEntries(entries, null);
   }
 
-  public void insert(TreeNode node, Integer parentId) {
+  private void saveEntries(TreeNode node, Integer parentId) {
     parentId = saveEntry(node.getData(), parentId);
 
-    Iterator<TreeNode> iterator = node.getChildren().iterator();
-
-    while (iterator.hasNext()) {
-      insert(iterator.next(), parentId);
+    for (TreeNode treeNode : node.getChildren()) {
+      saveEntries(treeNode, parentId);
     }
   }
 
-  public int saveEntry(String name, Integer parentId) {
+  private int saveEntry(String name, Integer parentId) {
     String query = "INSERT INTO ENTRY (NAME, PARENT_ID) VALUES (?, ?)";
 
     KeyHolder keyHolder = new GeneratedKeyHolder();

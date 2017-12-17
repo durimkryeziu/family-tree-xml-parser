@@ -2,7 +2,7 @@ package com.programmingskillz.familytreexmlparser.business.service;
 
 import com.programmingskillz.familytreexmlparser.business.domain.Entries;
 import com.programmingskillz.familytreexmlparser.business.exception.MoreThanOneRootException;
-import com.programmingskillz.familytreexmlparser.business.exception.RootNotFoundException;
+import com.programmingskillz.familytreexmlparser.business.exception.RootIsMissingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,10 +61,10 @@ public class ScheduledFileReader {
       }
     } catch (IOException e) {
       LOGGER.error("IOException", e);
-    } catch (RootNotFoundException e) {
-      LOGGER.error("There is no root", e);
+    } catch (RootIsMissingException e) {
+      LOGGER.error("Root entry is missing", e);
     } catch (MoreThanOneRootException e) {
-      LOGGER.error("There is more than one root.", e);
+      LOGGER.error("Only one root entry is allowed", e);
     }
   }
 
