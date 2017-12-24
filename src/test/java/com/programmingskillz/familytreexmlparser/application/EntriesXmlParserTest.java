@@ -70,7 +70,8 @@ public class EntriesXmlParserTest {
   }
 
   @After
-  public void tearDown() {
+  public void tearDown() throws JAXBException {
     verifyStatic(JAXBContext.class);
+    JAXBContext.newInstance(Entries.class);
   }
 }

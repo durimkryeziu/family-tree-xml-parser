@@ -47,7 +47,7 @@ public class ScheduledFileReader {
           xmlParser.parseXml(file).ifPresent(service::insertDoc);
         }
       } catch (Exception e) {
-        log.error("Error occurred while checking directory", e);
+        log.error("XML file has invalid format", e);
       }
     }
   }
