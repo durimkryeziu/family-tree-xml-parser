@@ -40,9 +40,9 @@ regular interval, e.g. every 30 seconds).
 ## Installation
 :one: `git clone https://github.com/durimkryeziu/family-tree-xml-parser.git`
 
-:two: In the **params.properties** file:
-- set **params.input-directory** to the directory you want to scan for XML files of the previously mentioned format 
-- set **params.processing-interval** to the interval you what to scan for.
+:two: Set Environment Variables properly:
+- set **INPUT_DIRECTORY** to the directory you want to scan for XML files of the previously mentioned format 
+- set **PROCESSING_INTERVAL** to the interval you what to scan for.
 
 :three: Run `mvn clean install` or `mvn -Dmaven.test.skip=true clean install` to skip tests
 
