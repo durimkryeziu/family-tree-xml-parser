@@ -1,6 +1,5 @@
 package com.programmingskillz.familytreexmlparser.domain;
 
-import java.util.Objects;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -27,23 +26,5 @@ public class Entry {
   @XmlValue
   public void setValue(String value) {
     this.value = value;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Entry entry = (Entry) o;
-    return Objects.equals(parentName, entry.parentName) &&
-        Objects.equals(value, entry.value);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(parentName, value);
   }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class TreeNode {
 
   private String data;
-  private TreeNode parent = null;
+  private TreeNode parent;
   private List<TreeNode> children;
 
   public TreeNode(String data) {
@@ -22,24 +22,8 @@ public class TreeNode {
     this.parent = parent;
   }
 
-  public TreeNode getParent() {
-    return parent;
-  }
-
-  public void addChildren(List<TreeNode> children) {
-    for (TreeNode child : children) {
-      child.setParent(this);
-    }
-    this.children.addAll(children);
-  }
-
   public List<TreeNode> getChildren() {
     return children;
-  }
-
-  public void addChild(TreeNode child) {
-    child.setParent(this);
-    this.children.add(child);
   }
 
   public void addChild(String data) {
