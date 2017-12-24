@@ -1,7 +1,6 @@
-## Family-Tree XML Parser 
+# Family-Tree XML Parser 
 
 [![Travis branch](https://img.shields.io/travis/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://travis-ci.org/durimkryeziu/family-tree-xml-parser) [![Coveralls branch](https://img.shields.io/coveralls/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://coveralls.io/github/durimkryeziu/family-tree-xml-parser?branch=master) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg?style=flat-square)](http://unlicense.org/)
-
 
 :fire: Spring Boot application which will accept XML documents in a family tree format, parse them and store them in the database. :fire:
 
@@ -41,9 +40,9 @@ regular interval, e.g. every 30 seconds).
 ## Installation
 :one: `git clone https://github.com/durimkryeziu/family-tree-xml-parser.git`
 
-:two: In the **params.properties** file:
-- set **params.input-directory** to the directory you want to scan for XML files of the previously mentioned format 
-- set **params.processing-interval** to the interval you what to scan for.
+:two: Set Environment Variables properly:
+- set **INPUT_DIRECTORY** to the directory you want to scan for XML files of the previously mentioned format 
+- set **PROCESSING_INTERVAL** to the interval you what to scan for.
 
 :three: Run `mvn clean install` or `mvn -Dmaven.test.skip=true clean install` to skip tests
 
