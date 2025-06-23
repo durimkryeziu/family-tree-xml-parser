@@ -1,79 +1,189 @@
-# Family-Tree XML Parser 
+# 🌳 Family Tree XML Parser 🤖
 
-[![Travis branch](https://img.shields.io/travis/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://travis-ci.org/durimkryeziu/family-tree-xml-parser) [![Coveralls branch](https://img.shields.io/coveralls/durimkryeziu/family-tree-xml-parser/master.svg?style=flat-square)](https://coveralls.io/github/durimkryeziu/family-tree-xml-parser?branch=master) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg?style=flat-square)](http://unlicense.org/)
+A Spring Boot application that parses XML files representing family tree entries and persists them into a relational database. It validates the input, constructs a tree structure, and stores entries in an `ENTRY` table with parent-child relationships.
 
-:fire: Spring Boot application which will accept XML documents in a family tree format, parse them and store them in the database. :fire:
+---
 
-The XML documents are in the following format:
+## ✨ Features
+
+- **📂 XML Parsing**: Reads and unmarshals XML into domain objects using **JAXB**.  
+- **✅ Validation**: Ensures exactly one root entry and at least one root before processing.  
+- **🌲 Tree Construction**: Builds a hierarchical `TreeNode` structure from flat XML entries.  
+- **💾 Persistence**: Saves nodes recursively into the database with parent-child links using **JDBC** and **Flyway** migrations.  
+- **⏰ Scheduled Processing**: Monitors a configurable directory for new XML files and processes them automatically.  
+- **🚀 REST API**: Exposes a `POST /documents` endpoint to submit XML payloads directly.  
+- **⚠️ Error Handling**: Returns meaningful HTTP 400 responses for validation errors.  
+
+---
+
+## 🚀 Technologies
+
+| Technology        | Version               |
+|-------------------|-----------------------|
+| Java              | 8                     |
+| Spring Boot       | 1.5.9.RELEASE         |
+| JAXB              | Built-In              |
+| H2 / JDBC DB      | 2.2.220 (H2 default)  |
+| Flyway            | 4.2.0                 |
+| HikariCP          | 2.7.2                 |
+| Testing           | JUnit, Mockito, PowerMock |
+| CI / Coverage     | Travis CI, Jacoco, Coveralls |
+
+---
+
+## 📁 Directory Structure
+
+```
+├── LICENSE
+├── README.md
+├── pom.xml
+├── .travis.yml
+└── src
+    ├── main
+    │   ├── java/com/programmingskillz
+    │   │   ├── FamilyTreeXmlParserApplication.java
+    │   │   └── familytreexmlparser
+    │   │       ├── api
+    │   │       ├── application
+    │   │       ├── domain
+    │   │       └── infrastructure
+    │   └── resources
+    │       ├── application.yml
+    │       ├── application-dev.yml
+    │       ├── application-test.yml
+    │       └── db/migration/V1__Create_schema.sql
+    └── test
+        └── java/com/programmingskillz
+```
+
+---
+
+## 🔧 Prerequisites
+
+- **Java 8** or higher  
+- **Maven 3.3+**  
+- (Optional) An external database (e.g., **MySQL**, **PostgreSQL**). By default, the embedded **H2** database is used.  
+
+---
+
+## 🛠️ Getting Started
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/durimkryeziu/family-tree-xml-parser.git
+   cd family-tree-xml-parser
+   ```
+
+2. **Configure the database** (optional)  
+   By default, the application uses an embedded H2 file-based database.  
+   To use another database, set the following env vars:
+   ```properties
+   JDBC_URL=jdbc:postgresql://localhost:5432/familytree
+   USERNAME=dbuser
+   PASSWORD=dbpass
+   ```
+   Flyway will handle schema creation automatically.
+
+3. **Build the project**  
+   ```bash
+   mvn clean package
+   ```
+
+4. **Run the application**  
+   ```bash
+   mvn spring-boot:run
+   ```
+   The application starts on **port 8080** by default. 🚀
+
+---
+
+## ⚙️ Configuration
+
+All configurable properties are in `src/main/resources/application.yml`. Override per profile:
+
+- **application-dev.yml**: H2 file, debug logging.  
+- **application-test.yml**: Test profile for integration tests.
+
+### 🔑 Key Properties
+
+| Property                                  | Description                           | Default                                    |
+|-------------------------------------------|---------------------------------------|--------------------------------------------|
+| `spring.datasource.url`                   | JDBC URL for the database             | `jdbc:h2:file:~/h2_data/family-tree-entries` |
+| `checking-parameters.input-directory`     | Directory to watch for XML files      | `/default-directory`                       |
+| `checking-parameters.processing-interval` | Delay between scans (ms)              | `30000`                                    |
+
+---
+
+## 📬 Usage
+
+### REST Endpoint
+
+- **URL**: `POST /documents`  
+- **Consumes**: `application/xml`  
+- **Produces**: `application/json`
+
+#### Sample Request
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
 <entries>
-    <entry>Adam</entry>
-    <entry parentName="Adam">Durim</entry>
-    <entry parentName="Durim">Nayla</entry>
-    <entry parentName="Adam">Jason</entry>
-    <entry parentName="Jason">Leta</entry>
-    <entry parentName="Jason">Benjamin</entry>
-    <entry parentName="Benjamin">Isaac</entry>
-    <entry parentName="Isaac">Robert</entry>
+  <entry>Adam</entry>
+  <entry parentName="Adam">Stjepan</entry>
+  <entry parentName="Stjepan">Luka</entry>
+  <entry parentName="Adam">Leopold</entry>
 </entries>
 ```
-Upon parsing the document, the application forms a tree data structure and writes that tree in a database table called ENTRY.
 
-:warning: An entry can have a single parent, but multiple children. If an entry does not have a parent, then it is considered to be the root of the tree.
+#### Curl Example
+```bash
+curl -X POST http://localhost:8080/documents      -H "Content-Type: application/xml"      -d @sample-entries.xml
+```
 
-The structure of the ENTRY table is shown below:
+#### ✅ Successful Response
+```json
+{
+  "message": "Document inserted successfully"
+}
+```
 
-|Column Name|Column Type |Column Description         |
-|:----------|:-----------|:--------------------------|
-|ID         |Integer     |Primary key (autogenerated)|
-|NAME       |String      |Name of entry              |
-|PARENT_ID  |Integer     |Reference to parent entry  |
+#### ❌ Validation Errors
+- Missing root entry  
+- More than one root entry  
 
-XML documents can be sent to the application in two ways:
+```json
+{
+  "message": "<error details>"
+}
+```
 
-:point_right: Via HTTP POST requests: `http://localhost:8080/documents` with _Content-Type: application/xml_
+---
 
-:point_right: By placing the files to a predefined directory (the application checks this directory in a
-regular interval, e.g. every 30 seconds).
+## 🗂️ Scheduled File Processing
 
-## Installation
-:one: `git clone https://github.com/durimkryeziu/family-tree-xml-parser.git`
+1. Drop your `.xml` files into the configured **input-directory**.  
+2. The app scans and processes valid XML files at intervals.  
+3. Errors are logged; invalid files are skipped.
 
-:two: Set Environment Variables properly:
-- set **INPUT_DIRECTORY** to the directory you want to scan for XML files of the previously mentioned format 
-- set **PROCESSING_INTERVAL** to the interval you what to scan for.
+---
 
-:three: Run `mvn clean install` or `mvn -Dmaven.test.skip=true clean install` to skip tests
+## 🧪 Testing
 
-:four: Run `java -jar target/family-tree-xml-parser-1.0.0-SNAPSHOT.jar` and you are ready to go!
+- **Unit Tests**:  
+  ```bash
+  mvn test
+  ```  
+- **Coverage Report**:  
+  Generated via Jacoco and published to Coveralls.
 
-## References
-- Spring Framework Reference Doc: http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
-- Spring Boot Reference Doc: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
+---
 
-## License
-This is free and unencumbered software released into the public domain.
+## 🔄 Continuous Integration
 
-Anyone is free to copy, modify, publish, use, compile, sell, or
-distribute this software, either in source code form or as a compiled
-binary, for any purpose, commercial or non-commercial, and by any
-means.
+Configured with **Travis CI**:
+- Build  
+- Test  
+- Coverage report
 
-In jurisdictions that recognize copyright laws, the author or authors
-of this software dedicate any and all copyright interest in the
-software to the public domain. We make this dedication for the benefit
-of the public at large and to the detriment of our heirs and
-successors. We intend this dedication to be an overt act of
-relinquishment in perpetuity of all present and future rights to this
-software under copyright law.
+---
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
+## 📜 License
 
-For more information, please refer to <http://unlicense.org>
+Released under the **Unlicense** ([LICENSE](LICENSE)) — free for public use in any form. 🌟
